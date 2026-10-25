@@ -1,4 +1,5 @@
-// Stream Companion — all personal data lives in localStorage. No network calls.
+// Stream Companion — all personal data lives in localStorage. No network
+// calls except sync.js's same-origin fetch of twitch-stats.json.
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var store = {

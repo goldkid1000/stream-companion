@@ -48,7 +48,18 @@
 <!-- ============ DASHBOARD ============ -->
 <section id="dash" class="panel active">
   <h2>Affiliate Progress</h2>
-  <p class="note">Numbers below are yours to update — nothing here is fetched from Twitch. Followers starts at your verified count (60); everything else starts at 0 until you enter it.</p>
+  <p class="note">Followers can come from the automatic sync below, or type your own. Everything else starts at 0 until you enter it.</p>
+  <div class="card" id="syncCard">
+    <h3>📡 Twitch Sync (automatic)</h3>
+    <p class="note" id="syncChecked">Checking for sync data…</p>
+    <p id="syncNow"></p>
+    <div class="row"><button id="syncApply" class="btn secondary">Use auto follower count in tracker</button> <span class="saved" id="syncApplied"></span></div>
+    <h4>Follower history (auto)</h4>
+    <ul id="syncHistory"></ul>
+    <h4>Recent streams (auto)</h4>
+    <ul id="syncStreams"></ul>
+    <p class="note">Checked every 6 hours from your public channel page — no Twitch login involved. Broadcast minutes and average viewers still need manual entry; they aren't on the public page.</p>
+  </div>
   <div class="stat-grid">
     <div class="stat">
       <label>Followers <span class="goal">(goal: 100)</span></label>
@@ -460,5 +471,6 @@
 
 <script src="app.js"></script>
 <script src="features.js"></script>
+<script src="sync.js"></script>
 </body>
 </html>

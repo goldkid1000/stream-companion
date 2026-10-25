@@ -42,6 +42,7 @@
   <button class="tab" data-tab="growth">Growth Playbook</button>
   <button class="tab" data-tab="prompts">Empty-Chat Prompts</button>
   <button class="tab" data-tab="data">Data</button>
+  <button class="tab" data-tab="publish">Publish</button>
 </nav>
 
 <main>
@@ -465,6 +466,60 @@
     <p class="note">This clears every Stream Companion entry in this browser. It cannot be undone — export a backup first.</p>
   </div>
 </section>
+
+<!-- ============ PUBLISH ============ -->
+<section id="publish" class="panel">
+  <h2>Publish — tell your socials you're live</h2>
+  <p class="note">No account is truly connected here: X, TikTok and friends block browser-only posting, so this page can't hold their login. Instead it opens each post prefilled (X, Bluesky) or copies the caption and opens your profile (Threads, TikTok, Instagram, YouTube) — one tap, you hit Post.</p>
+  <div class="card">
+    <h3>Your handles</h3>
+    <p class="note">Stored only in this browser, included in the Data backup. Leave blank what you don't have — no handle is guessed.</p>
+    <label>X (Twitter) <input id="inX" type="text" placeholder="@yourhandle"></label>
+    <label>Bluesky <input id="inBluesky" type="text" placeholder="@yourhandle"></label>
+    <label>Threads <input id="inThreads" type="text" placeholder="@yourhandle"></label>
+    <label>TikTok <input id="inTiktok" type="text" placeholder="@yourhandle"></label>
+    <label>YouTube <input id="inYoutube" type="text" placeholder="@Burry20066"></label>
+    <label>Instagram <input id="inInstagram" type="text" placeholder="@yourhandle"></label>
+    <label>Facebook <input id="inFacebook" type="text" placeholder="page or profile name"></label>
+    <button id="saveHandles" class="btn">Save handles</button>
+    <p class="saved" id="handlesSaved"></p>
+  </div>
+  <div class="card">
+    <h3>Announcement</h3>
+    <label>Type
+      <select id="pubType">
+        <option value="live">Going live</option>
+        <option value="clip">New clip</option>
+        <option value="schedule">Schedule post</option>
+        <option value="vod">VOD up</option>
+      </select>
+    </label>
+    <div class="row">
+      <button class="btn secondary" data-tpl="live">Live template</button>
+      <button class="btn secondary" data-tpl="clip">Clip template</button>
+      <button class="btn secondary" data-tpl="schedule">Schedule template</button>
+      <button class="btn secondary" data-tpl="vod">VOD template</button>
+    </div>
+    <label>Post text <textarea id="pubText" rows="4">🔴 LIVE NOW — Warframe Farming + Chatting | Road to 100 Followers ▶ https://www.twitch.tv/el_burry2006</textarea></label>
+    <p class="note" id="pubCount"></p>
+    <div class="row">
+      <button class="btn" data-post="x">Post on X (prefilled)</button>
+      <button class="btn" data-post="bluesky">Post on Bluesky (prefilled)</button>
+      <button class="btn secondary" data-post="facebook">Share link on Facebook</button>
+    </div>
+    <div class="row">
+      <button class="btn secondary" data-post="threads">Copy + open Threads</button>
+      <button class="btn secondary" data-post="tiktok">Copy + open TikTok</button>
+      <button class="btn secondary" data-post="instagram">Copy + open Instagram</button>
+      <button class="btn secondary" data-post="youtube">Copy + open YouTube</button>
+    </div>
+    <p class="saved" id="pubCopied"></p>
+  </div>
+  <div class="card">
+    <h3>Posted log</h3>
+    <ul id="pubHistory"></ul>
+  </div>
+</section>
 </main>
 
 <footer><p>Stream Companion v2.0.0 · EL_BURRY2006 · All data stays in this browser (localStorage). No login, no tracking. Installable as an app (PWA).</p></footer>
@@ -472,5 +527,6 @@
 <script src="app.js"></script>
 <script src="features.js"></script>
 <script src="sync.js"></script>
+<script src="publish.js"></script>
 </body>
 </html>

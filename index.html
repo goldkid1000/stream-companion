@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stream Companion — EL_BURRY2006</title>
+<meta name="theme-color" content="#070d1f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>🎮 Stream Companion <span class="ver">v2.0.0</span></h1>
+    <p class="sub">EL_BURRY2006 · Warframe + variety · Road to 100</p>
+  </div>
+  <nav class="links">
+    <a href="https://www.twitch.tv/el_burry2006" target="_blank" rel="noopener">Twitch</a>
+    <a href="https://www.youtube.com/@Burry20066" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.tiktok.com/@burry2006" target="_blank" rel="noopener">TikTok</a>
+  </nav>
+</header>
+
+<div class="searchbox">
+  <input id="globalSearch" type="search" placeholder="Search settings, playbook cards, prompts…">
+  <div id="searchResults" class="search-results"></div>
+</div>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="dash">Dashboard</button>
+  <button class="tab" data-tab="checklist">Go-Live Checklist</button>
+  <button class="tab" data-tab="settings">Settings Library</button>
+  <button class="tab" data-tab="titles">Title Studio</button>
+  <button class="tab" data-tab="log">Stream Log</button>
+  <button class="tab" data-tab="analytics">Analytics</button>
+  <button class="tab" data-tab="schedule">Schedule</button>
+  <button class="tab" data-tab="clips">Clip Studio</button>
+  <button class="tab" data-tab="engage">Engagement</button>
+  <button class="tab" data-tab="session">Session Tools</button>
+  <button class="tab" data-tab="vod">VOD Pipeline</button>
+  <button class="tab" data-tab="growth">Growth Playbook</button>
+  <button class="tab" data-tab="prompts">Empty-Chat Prompts</button>
+  <button class="tab" data-tab="data">Data</button>
+</nav>
+
+<main>
+<!-- ============ DASHBOARD ============ -->
+<section id="dash" class="panel active">
+  <h2>Affiliate Progress</h2>
+  <p class="note">Numbers below are yours to update — nothing here is fetched from Twitch. Followers starts at your verified count (60); everything else starts at 0 until you enter it.</p>
+  <div class="stat-grid">
+    <div class="stat">
+      <label>Followers <span class="goal">(goal: 100)</span></label>
+      <div class="row"><input id="inFollowers" type="number" min="0" inputmode="numeric"> <span>/ 100</span></div>
+      <div class="bar"><div class="fill gold" id="barFollowers"></div></div>
+      <p class="pct" id="pctFollowers"></p>
+    </div>
+    <div class="stat">
+      <label>Broadcast minutes, last 30 days <span class="goal">(Affiliate needs 500)</span></label>
+      <div class="row"><input id="inMinutes" type="number" min="0" inputmode="numeric"> <span>/ 500</span></div>
+      <div class="bar"><div class="fill teal" id="barMinutes"></div></div>
+      <p class="pct" id="pctMinutes"></p>
+    </div>
+    <div class="stat">
+      <label>Unique stream days, last 30 days <span class="goal">(Affiliate needs 7)</span></label>
+      <div class="row"><input id="inDays" type="number" min="0" inputmode="numeric"> <span>/ 7</span></div>
+      <div class="bar"><div class="fill gold" id="barDays"></div></div>
+      <p class="pct" id="pctDays"></p>
+    </div>
+    <div class="stat">
+      <label>Average viewers, last 30 days <span class="goal">(Affiliate needs 3)</span></label>
+      <div class="row"><input id="inViewers" type="number" min="0" step="0.1" inputmode="decimal"> <span>/ 3</span></div>
+      <div class="bar"><div class="fill teal" id="barViewers"></div></div>
+      <p class="pct" id="pctViewers"></p>
+    </div>
+  </div>
+  <button id="saveAffiliate" class="btn">Save numbers</button>
+  <p class="saved" id="affSaved"></p>
+  <div class="card warn">
+    <h3>⚠ Still to do on Twitch</h3>
+    <ul>
+      <li>Delete the stale 62/70 goals widget below your player — it contradicts your real 60 followers.</li>
+      <li>Fill in the empty Schedule tab with 2–3 fixed days/times.</li>
+      <li>Add TikTok to your header Social Links (YouTube is the only one there now).</li>
+      <li>Check VOD setting “Store past broadcasts” is on.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="checklist" class="panel">
+  <h2>Go-Live Checklist</h2>
+  <div class="preset-row">
+    <label>Game preset:</label>
+    <button class="preset active" data-preset="warframe">Warframe</button>
+    <button class="preset" data-preset="fortnite">Fortnite</button>
+    <button class="preset" data-preset="variety">Variety</button>
+  </div>
+  <p class="preset-note" id="presetNote"></p>
+  <ul class="checks" id="checkList"></ul>
+  <p class="progress" id="checkProgress"></p>
+  <button id="resetChecks" class="btn secondary">Reset checklist</button>
+</section>
+
+<!-- ============ SETTINGS ============ -->
+<section id="settings" class="panel">
+  <h2>Settings Library</h2>
+  <p class="note">Verified cards are your real, tested settings on the HP Victus (Radeon 660M iGPU + RX 6550M). Starting-point cards are untested suggestions to tune — never verified values.</p>
+
+  <h3>OBS — Stream output</h3>
+  <ul class="specs">
+    <li data-search="OBS output resolution 1280x720 stream">Output resolution: <b>1280x720</b> for now</li>
+    <li data-search="OBS encoder AMD HW H.264 CBR 6000 4500 upload 8 Mbps">Encoder: <b>AMD HW H.264</b>, <b>CBR 6000</b> (drop to <b>4500 if upload &lt; 8 Mbps</b>)</li>
+    <li data-search="OBS keyframe 2s Balanced High profile">Keyframe interval: <b>2s</b> · Rate control preset: <b>Balanced</b> · Profile: <b>High</b></li>
+    <li data-search="OBS Auto-Configuration Wizard never run wipes VOD Track 2 recording"><b class="warn-text">NEVER run the Auto-Configuration Wizard</b> — it switches OBS to Simple mode and wipes VOD Track 2 + recording quality.</li>
+    <li data-search="OBS process priority above normal run as admin">Process Priority: <b>Above Normal</b> · Run OBS as admin</li>
+    <li data-search="OBS preview off lagging">OBS Preview: <b>OFF</b> when lagging</li>
+  </ul>
+
+  <h3>OBS — Recording</h3>
+  <ul class="specs">
+    <li data-search="recording H.264 not HEVC">Recording encoder: <b>H.264 (not HEVC)</b></li>
+    <li data-search="recording MKV auto-remux MP4 CQP 18-20">Format: <b>MKV + auto-remux to MP4</b> · Quality: <b>CQP 18-20</b></li>
+    <li data-search="VOD audio Track 2 no music">VOD audio: <b>Track 2 with no music</b> (keeps VODs safe from muted audio)</li>
+  </ul>
+
+  <h3>OBS — Audio</h3>
+  <ul class="specs">
+    <li data-search="audio 48kHz mic 80 percent -20 dB">Sample rate: <b>48kHz</b> · Mic level: <b>~80%</b> (raw approx <b>-20 dB</b>)</li>
+    <li data-search="filter chain RNNoise Noise Gate -45 -50 Gain Compressor Limiter">Filter chain, in order: <b>RNNoise → Noise Gate (-45/-50) → Gain +3..+6 → Compressor 3:1 @ -18 → Limiter -3</b></li>
+  </ul>
+
+  <h3>OBS — Black overlay fix (660M)</h3>
+  <ul class="specs">
+    <li data-search="browser source hardware acceleration black overlays 660M restart">Uncheck <b>“Enable Browser Source Hardware Acceleration”</b> in OBS Settings → Advanced, then do a <b>full OBS restart</b>. This fixes black browser overlays when OBS runs on the 660M.</li>
+  </ul>
+
+  <h3>PC — Dual-GPU assignments</h3>
+  <ul class="specs">
+    <li data-search="OBS power saving 660M games high performance 6550M">OBS: <b>Power saving (660M)</b> · Games: <b>High performance (RX 6550M)</b></li>
+    <li data-search="Adrenalin AFMF OFF RSR OFF 6550M">AMD Adrenalin on the <b>6550M: AFMF OFF + RSR OFF</b></li>
+    <li data-search="Adrenalin 660M everything OFF">AMD Adrenalin on the <b>660M: everything OFF</b></li>
+  </ul>
+
+  <h3>When it lags — read OBS Stats</h3>
+  <ul class="specs">
+    <li data-search="rendering lag GPU overloaded encoding lag network dropped frames">Rendering lag = GPU overloaded (lower game settings / output resolution). Encoding lag = encoder overloaded (lower bitrate or switch encoder). Network/dropped frames = connection (lower bitrate toward 4500).</li>
+  </ul>
+
+  <h3>Per-game settings</h3>
+  <div class="cards">
+    <div class="card verified" data-search="Warframe Window Capture Borderless Windowed Game Capture black dual GPU verified">
+      <h3>✅ VERIFIED — Warframe</h3>
+      <p><b>Window Capture + Borderless Windowed</b>. Game Capture cannot cross the two GPUs and shows a black screen.</p>
+      <p>Output 1280x720 · AMD HW H.264 · CBR 6000 · chat box clear of the minimap corner.</p>
+    </div>
+    <div class="card verified" data-search="Fortnite Performance Mode 120 FPS cap verified">
+      <h3>✅ VERIFIED — Fortnite</h3>
+      <p><b>Performance Mode + 120 FPS cap</b>. OBS Preview OFF if the stream lags.</p>
+      <p>Same OBS output chain as Warframe: 1280x720 · AMD HW H.264 · CBR 6000.</p>
+    </div>
+    <div class="card starting" data-search="Minecraft starting point capture performance tune">
+      <h3>🧪 STARTING POINT — Minecraft (not verified, tune it)</h3>
+      <p>Try Game Capture first; fall back to Window Capture if it shows black. Cap FPS to what the 6550M holds steadily, turn down render distance before bitrate, and test in a private stream before going live.</p>
+    </div>
+    <div class="card starting" data-search="Valorant starting point capture performance tune">
+      <h3>🧪 STARTING POINT — Valorant (not verified, tune it)</h3>
+      <p>Try Game Capture in fullscreen; if the anti-cheat blocks it, use Window Capture + Borderless Windowed. Cap FPS to a value the 6550M holds without dips, and test in a private stream before going live.</p>
+    </div>
+    <div class="card starting" data-search="Rocket League starting point capture performance tune">
+      <h3>🧪 STARTING POINT — Rocket League (not verified, tune it)</h3>
+      <p>Try Game Capture first; Window Capture + Borderless Windowed is the fallback. Cap FPS to a steady value, keep OBS Preview OFF while live, and test in a private stream before going live.</p>
+    </div>
+    <div class="card starting" data-search="Apex Legends starting point capture performance tune">
+      <h3>🧪 STARTING POINT — Apex Legends (not verified, tune it)</h3>
+      <p>Demanding on the 6550M: start with low/medium settings, cap FPS to a steady value, and try Game Capture first (Window Capture fallback). If OBS Stats shows rendering lag, lower game settings before touching bitrate. Test in a private stream before going live.</p>
+    </div>
+    <div class="card starting" data-search="Elden Ring starting point capture performance tune">
+      <h3>🧪 STARTING POINT — Elden Ring (not verified, tune it)</h3>
+      <p>Try Game Capture; Window Capture + Borderless Windowed is the fallback. Start with medium settings and a modest FPS cap the 6550M can hold, keep OBS Preview OFF, and test in a private stream before going live.</p>
+    </div>
+    <div class="card starting" data-search="Roblox starting point capture performance tune">
+      <h3>🧪 STARTING POINT — Roblox (not verified, tune it)</h3>
+      <p>Try Game Capture or Window Capture — Roblox plays nicely with either. Cap FPS to a steady value, and test in a private stream before going live.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TITLES ============ -->
+<section id="titles" class="panel">
+  <h2>Title Studio</h2>
+  <div class="card">
+    <h3>Everyday default</h3>
+    <p class="title-line" id="defaultTitle">Warframe Farming + Chatting | Road to 100 Followers</p>
+    <button class="btn copy" data-copy="defaultTitle">Copy title</button>
+  </div>
+  <div class="card">
+    <h3>Title generator</h3>
+    <div class="gen">
+      <label>Game <input id="genGame" value="Warframe"></label>
+      <label>Activity <input id="genActivity" value="Farming + Chatting"></label>
+      <label>Goal <input id="genGoal" value="Road to 100 Followers"></label>
+      <label>Category
+        <select id="genCategory">
+          <option>Warframe</option><option>Fortnite</option><option>Just Chatting</option>
+          <option>Minecraft</option><option>VALORANT</option><option>Rocket League</option>
+          <option>Apex Legends</option><option>Elden Ring</option><option>Roblox</option>
+        </select>
+      </label>
+    </div>
+    <p class="title-line" id="genTitle"></p>
+    <button class="btn copy" data-copy="genTitle">Copy title</button>
+    <p class="note">Tip: on days you feel like it, put the day's farm first — e.g. “Relic Farming | Warframe Farming + Chatting | Road to 100 Followers”. The base title works fine as-is on days you don't.</p>
+  </div>
+  <div class="card">
+    <h3>Tone variants</h3>
+    <p class="note">Same stream, three vibes — pick the one that matches your energy today.</p>
+    <ul class="alt-titles">
+      <li>😌 Chill: <span id="toneChill"></span> <button data-copy="toneChill">Copy</button></li>
+      <li>🔥 Hype: <span id="toneHype"></span> <button data-copy="toneHype">Copy</button></li>
+      <li>⚔️ Grind: <span id="toneGrind"></span> <button data-copy="toneGrind">Copy</button></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Tag suggestions</h3>
+    <label>Game
+      <select id="tagGame">
+        <option>Warframe</option><option>Fortnite</option><option>Minecraft</option>
+        <option>VALORANT</option><option>Rocket League</option><option>Apex Legends</option>
+        <option>Elden Ring</option><option>Roblox</option>
+      </select>
+    </label>
+    <p class="title-line" id="tagList"></p>
+    <button class="btn copy" data-copy="tagList">Copy tags</button>
+    <p class="note">Twitch tags are suggestions only — pick the ones that fit today's stream.</p>
+  </div>
+  <div class="card">
+    <h3>Ready-made alternates</h3>
+    <ul class="alt-titles" id="altTitles"></ul>
+  </div>
+</section>
+
+<!-- ============ LOG ============ -->
+<section id="log" class="panel">
+  <h2>Stream Log</h2>
+  <form id="logForm" class="gen">
+    <label>Date <input id="logDate" type="date" required></label>
+    <label>Game <input id="logGame" value="Warframe" required></label>
+    <label>Title <input id="logTitle" value="Warframe Farming + Chatting | Road to 100 Followers"></label>
+    <label>Peak viewers <input id="logPeak" type="number" min="0" inputmode="numeric"></label>
+    <label>Followers gained <input id="logGained" type="number" min="0" inputmode="numeric"></label>
+    <label>Notes <input id="logNotes" placeholder="What worked? What lagged?"></label>
+    <button class="btn" type="submit">Add session</button>
+  </form>
+  <div class="totals" id="logTotals"></div>
+  <ul class="sessions" id="logList"></ul>
+</section>
+
+<!-- ============ ANALYTICS ============ -->
+<section id="analytics" class="panel">
+  <h2>Analytics</h2>
+  <p class="note">Charts are drawn from your own stream log — nothing here is fetched or estimated. Log sessions on the Stream Log tab and this tab fills itself in.</p>
+  <div class="totals" id="anTotals"></div>
+  <div class="card" id="anInsights"><h3>Insights</h3><p class="note">Log at least one session to see insights.</p></div>
+  <div class="card">
+    <h3>Followers gained over time (cumulative)</h3>
+    <canvas id="chartFollowers" width="800" height="260"></canvas>
+  </div>
+  <div class="card">
+    <h3>Peak viewers per session</h3>
+    <canvas id="chartViewers" width="800" height="260"></canvas>
+  </div>
+</section>
+
+<!-- ============ SCHEDULE ============ -->
+<section id="schedule" class="panel">
+  <h2>Schedule Planner</h2>
+  <p class="note">Pick 2–3 fixed days. The text below is ready to paste into your Twitch Schedule tab, and the countdown shows your next stream.</p>
+  <div id="schedGrid"></div>
+  <button id="saveSched" class="btn">Save schedule</button>
+  <div class="card">
+    <h3>Next stream</h3>
+    <p class="title-line" id="nextCountdown">No scheduled streams yet.</p>
+  </div>
+  <div class="card">
+    <h3>Twitch Schedule tab text</h3>
+    <p class="title-line" id="schedText"></p>
+    <button class="btn copy" data-copy="schedText">Copy schedule text</button>
+  </div>
+</section>
+
+<!-- ============ CLIPS ============ -->
+<section id="clips" class="panel">
+  <h2>Clip Studio — TikTok / Shorts</h2>
+  <p class="note">One clip per stream. Pick a hook, generate the caption + hashtags, then track the post through the checklist.</p>
+  <form id="clipForm" class="gen">
+    <label>Stream date <input id="clipDate" type="date" required></label>
+    <label>Game
+      <select id="clipGame">
+        <option>Warframe</option><option>Fortnite</option><option>Minecraft</option>
+        <option>VALORANT</option><option>Rocket League</option><option>Apex Legends</option>
+        <option>Elden Ring</option><option>Roblox</option>
+      </select>
+    </label>
+    <label>First-3-seconds hook
+      <select id="clipHook">
+        <option>Watch this drop…</option>
+        <option>Nobody talks about this farm…</option>
+        <option>I did NOT expect this…</option>
+        <option>This build is actually cracked…</option>
+        <option>Day 1 of the road to 100…</option>
+        <option>POV: your farm finally pays off…</option>
+      </select>
+    </label>
+    <label>Clip topic <input id="clipTopic" placeholder="e.g. relic run, clutch win"></label>
+    <button class="btn" type="submit">Add clip</button>
+  </form>
+  <ul class="sessions" id="clipList"></ul>
+</section>
+
+<!-- ============ ENGAGEMENT ============ -->
+<section id="engage" class="panel">
+  <h2>Engagement Tools (no bots — all manual)</h2>
+  <div class="card">
+    <h3>📊 Manual poll</h3>
+    <input id="pollQ" placeholder="Poll question, e.g. What should I farm next?">
+    <div class="gen" style="margin-top:10px">
+      <label>Option 1 <input id="pollOpt1" value="Relics"></label>
+      <label>Option 2 <input id="pollOpt2" value="Credits"></label>
+      <label>Option 3 <input id="pollOpt3" value="Kuva"></label>
+      <label>Option 4 <input id="pollOpt4" value="Chat picks"></label>
+    </div>
+    <button id="pollStart" class="btn" style="margin-top:10px">Start / reset poll</button>
+    <div id="pollVotes" style="margin-top:12px"></div>
+  </div>
+  <div class="card">
+    <h3>🎁 Giveaway winner picker</h3>
+    <p class="note">Paste one name per line (from chat, no bots involved), then pick a winner.</p>
+    <textarea id="giveNames" rows="5" placeholder="one name per line"></textarea>
+    <button id="givePick" class="btn" style="margin-top:10px">Pick a winner</button>
+    <p class="title-line" id="giveResult" style="margin-top:12px">No winner picked yet.</p>
+  </div>
+  <div class="card">
+    <h3>📣 Shoutout queue</h3>
+    <div class="row"><input id="shoutName" placeholder="Streamer name"><button id="shoutAdd" class="btn">Add</button></div>
+    <ul class="sessions" id="shoutList"></ul>
+    <button id="shoutNext" class="btn secondary">Next shoutout (mark done)</button>
+  </div>
+</section>
+
+<!-- ============ SESSION TOOLS ============ -->
+<section id="session" class="panel">
+  <h2>Session Tools</h2>
+  <div class="card">
+    <h3>⏱️ Stream uptime (manual timer)</h3>
+    <p class="big-timer" id="uptime">00:00:00</p>
+    <button id="upStart" class="btn">Start</button>
+    <button id="upPause" class="btn secondary">Pause</button>
+    <button id="upReset" class="btn secondary">Reset</button>
+  </div>
+  <div class="card">
+    <h3>🎯 Live follower-goal progress</h3>
+    <div class="gen">
+      <label>Followers at stream start <input id="goalStart" type="number" min="0" value="60"></label>
+      <label>Followers now <input id="goalNow" type="number" min="0" value="60"></label>
+      <label>Goal <input id="goalTarget" type="number" min="1" value="100"></label>
+    </div>
+    <div class="bar" style="margin-top:12px"><div class="fill gold" id="goalBar"></div></div>
+    <p class="pct" id="goalPct"></p>
+  </div>
+  <div class="card">
+    <h3>💬 Stuck for something to say?</h3>
+    <p class="title-line" id="randomPrompt">Press the button for a random thing to say.</p>
+    <button id="randomBtn" class="btn">Give me something to say</button>
+  </div>
+</section>
+
+<!-- ============ VOD PIPELINE ============ -->
+<section id="vod" class="panel">
+  <h2>VOD-to-Content Pipeline</h2>
+  <p class="note">One VOD becomes several posts. Add a VOD, then check off each piece as you make it.</p>
+  <div class="row">
+    <input id="vodTitle" placeholder="VOD title, e.g. Warframe farming 10/25">
+    <button id="vodAdd" class="btn">Add VOD</button>
+  </div>
+  <ul class="sessions" id="vodList"></ul>
+</section>
+
+<!-- ============ GROWTH ============ -->
+<section id="growth" class="panel">
+  <h2>Growth Playbook</h2>
+  <div class="cards">
+    <div class="card" data-search="fixed schedule 2-3 days consistency affiliate"><h3>📅 Fixed schedule</h3><p>Pick 2–3 fixed days/times and fill the Schedule tab. Consistency feeds the Affiliate day + minute gates and gives viewers a reason to come back.</p></div>
+    <div class="card" data-search="one TikTok clip per stream funnel"><h3>🎬 One TikTok clip per stream</h3><p>Your TikTok (@burry2006) is the funnel. Cut one clip from every stream and post it — clips bring people to Twitch, not the other way around.</p></div>
+    <div class="card" data-search="narrate farm empty chat avatar move"><h3>🎙️ Narrate the farm</h3><p>Talk even to an empty chat: call out what you're farming, why, and what the build does. It also makes your avatar move — silence looks dead on stream.</p></div>
+    <div class="card" data-search="raid small Warframe streamers"><h3>⚔️ Raid small Warframe streamers</h3><p>End streams by raiding a similar small Warframe streamer. They notice, their chat notices, and some follow back.</p></div>
+    <div class="card" data-search="delete stale 62/70 goals widget"><h3>🧹 Delete the stale widget</h3><p>Remove the 62/70 goals widget below your player — it contradicts your real 60 followers and confuses new viewers.</p></div>
+    <div class="card" data-search="live StreamElements Goals bar in-video"><h3>📊 Live Goals bar in-video</h3><p>Put the live StreamElements Goals bar in your video (not a static number) so viewers see real progress toward 100.</p></div>
+  </div>
+  <h3>Raid message (copy + paste)</h3>
+  <div class="card">
+    <p class="title-line" id="raidMsg">Burry raid! Warframe enjoyer on the road to 100 followers — thanks for having us, go show some love! ⚔️</p>
+    <button class="btn copy" data-copy="raidMsg">Copy raid message</button>
+  </div>
+  <h3>Shoutout message (copy + paste)</h3>
+  <div class="card">
+    <p class="title-line" id="shoutMsg">Shoutout to a fellow small Warframe streamer — go drop them a follow, they earned it! 💛</p>
+    <button class="btn copy" data-copy="shoutMsg">Copy shoutout</button>
+  </div>
+</section>
+
+<!-- ============ PROMPTS ============ -->
+<section id="prompts" class="panel">
+  <h2>Empty-Chat Prompts</h2>
+  <p class="note">Chat quiet? Say one of these out loud. Talking keeps the stream alive — and moves your avatar.</p>
+  <h3>🌾 Farm callouts</h3>
+  <ul class="specs">
+    <li data-search="farm callout what farming build">“Right now I'm farming [item] because I need it for [build/weapon].”</li>
+    <li data-search="farm callout run number drop">“This is run number [X] — let's see if the drop finally cooperates.”</li>
+    <li data-search="farm callout fastest route">“Here's the fastest route I use for this farm, step by step.”</li>
+    <li data-search="farm callout mistake avoid">“If you're farming this too, the one mistake to avoid is…”</li>
+  </ul>
+  <h3>💬 Questions for viewers</h3>
+  <ul class="specs">
+    <li data-search="question viewers main frame try next">“What's your main right now — and what frame should I try next?”</li>
+    <li data-search="question viewers farming this week stuck drop">“What are you farming this week? Anyone else stuck on the same drop?”</li>
+    <li data-search="question viewers new players wish explained">“New players in chat: what's the one thing you wish someone explained sooner?”</li>
+    <li data-search="question viewers starter farm relics credits">“Chat, settle it: which is the better starter farm — relics or credits?”</li>
+  </ul>
+  <h3>🛠️ Talk about the build</h3>
+  <ul class="specs">
+    <li data-search="talk build mods slot">“Here's my build and why each mod is there — ask me about any slot.”</li>
+    <li data-search="talk build weapon mod swapped">“This weapon feels completely different with this one mod swapped.”</li>
+    <li data-search="talk build testing loadout">“I'm testing this build today — tell me if it looks off or cracked.”</li>
+    <li data-search="talk build last change fixed">“The last change I made to this loadout was [X], and here's what it fixed.”</li>
+  </ul>
+</section>
+
+<!-- ============ DATA ============ -->
+<section id="data" class="panel">
+  <h2>Data — Backup &amp; Restore</h2>
+  <p class="note">Everything in this app lives in your browser. Export a backup file before switching devices, and import it on the new one.</p>
+  <div class="card">
+    <button id="exportBtn" class="btn">Export all data (JSON)</button>
+    <p class="note">Downloads one file with your affiliate numbers, checklist, log, schedule, clips, shoutouts, and VOD tasks.</p>
+  </div>
+  <div class="card">
+    <label>Import a backup file <input id="importFile" type="file" accept=".json,application/json"></label>
+    <p class="saved" id="importMsg"></p>
+  </div>
+  <div class="card">
+    <button id="clearBtn" class="btn secondary">Erase all app data</button>
+    <p class="note">This clears every Stream Companion entry in this browser. It cannot be undone — export a backup first.</p>
+  </div>
+</section>
+</main>
+
+<footer><p>Stream Companion v2.0.0 · EL_BURRY2006 · All data stays in this browser (localStorage). No login, no tracking. Installable as an app (PWA).</p></footer>
+
+<script src="app.js"></script>
+<script src="features.js"></script>
+</body>
+</html>

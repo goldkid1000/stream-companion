@@ -1,7 +1,7 @@
 {
   "channel": "el_burry2006",
   "followers": 64,
-  "game": null,
+  "game": "Warframe",
   "history": [
     {
       "at": "2026-10-25T13:59:00-04:00",
@@ -62,9 +62,14 @@
       "at": "2026-10-28T08:00:00-04:00",
       "followers": 64,
       "is_live": false
+    },
+    {
+      "at": "2026-10-28T14:01:31-04:00",
+      "followers": 64,
+      "is_live": true
     }
   ],
-  "is_live": false,
+  "is_live": true,
   "streams": [
     {
       "date": "2026-10-25",
@@ -77,9 +82,15 @@
       "game": "Warframe",
       "peak_viewers": 1,
       "title": "Warframe GRIND: Farming + Chatting | Road to 100 Followers"
+    },
+    {
+      "date": "2026-10-28",
+      "game": "Warframe",
+      "peak_viewers": 4,
+      "title": "Warframe GRIND: Farming + Chatting/Chilling | Road to 100 Followers"
     }
   ],
-  "title": null,
-  "updated_at": "2026-10-28T08:00:00-04:00",
-  "viewers": null
+  "title": "Warframe GRIND: Farming + Chatting/Chilling | Road to 100 Followers",
+  "updated_at": "2026-10-28T14:01:31-04:00",
+  "viewers": 4
 }

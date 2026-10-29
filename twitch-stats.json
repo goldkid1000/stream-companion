@@ -82,6 +82,11 @@
       "at": "2026-10-29T08:00:18-04:00",
       "followers": 64,
       "is_live": false
+    },
+    {
+      "at": "2026-10-29T14:00:38-04:00",
+      "followers": 64,
+      "is_live": false
     }
   ],
   "is_live": false,
@@ -106,6 +111,6 @@
     }
   ],
   "title": null,
-  "updated_at": "2026-10-29T08:00:18-04:00",
+  "updated_at": "2026-10-29T14:00:38-04:00",
   "viewers": null
 }

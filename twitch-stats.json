@@ -1,6 +1,6 @@
 {
   "channel": "el_burry2006",
-  "followers": 64,
+  "followers": 65,
   "game": null,
   "history": [
     {
@@ -87,6 +87,11 @@
       "at": "2026-10-29T14:00:38-04:00",
       "followers": 64,
       "is_live": false
+    },
+    {
+      "at": "2026-10-29T20:01:29-04:00",
+      "followers": 65,
+      "is_live": false
     }
   ],
   "is_live": false,
@@ -111,6 +116,6 @@
     }
   ],
   "title": null,
-  "updated_at": "2026-10-29T14:00:38-04:00",
+  "updated_at": "2026-10-29T20:01:29-04:00",
   "viewers": null
 }

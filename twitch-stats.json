@@ -202,6 +202,21 @@
       "at": "2026-11-05T19:03:00-05:00",
       "followers": 63,
       "is_live": false
+    },
+    {
+      "at": "2026-11-06T01:00:16-05:00",
+      "followers": 63,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-06T07:02:31-05:00",
+      "followers": 63,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-06T13:00:39-05:00",
+      "followers": 63,
+      "is_live": false
     }
   ],
   "is_live": false,
@@ -226,6 +241,6 @@
     }
   ],
   "title": null,
-  "updated_at": "2026-11-05T19:03:00-05:00",
+  "updated_at": "2026-11-06T13:00:39-05:00",
   "viewers": null
 }

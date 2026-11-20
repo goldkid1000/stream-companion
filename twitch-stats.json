@@ -462,6 +462,26 @@
       "at": "2026-11-18T19:00:50-05:00",
       "followers": 62,
       "is_live": false
+    },
+    {
+      "at": "2026-11-19T01:00:32-05:00",
+      "followers": 62,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-19T07:00:23-05:00",
+      "followers": 62,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-19T17:08:28-05:00",
+      "followers": 62,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-19T21:41:30-05:00",
+      "followers": 62,
+      "is_live": false
     }
   ],
   "is_live": false,
@@ -486,6 +506,6 @@
     }
   ],
   "title": null,
-  "updated_at": "2026-11-18T19:00:50-05:00",
+  "updated_at": "2026-11-19T21:41:30-05:00",
   "viewers": null
 }

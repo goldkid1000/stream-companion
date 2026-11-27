@@ -4,26 +4,6 @@
   "game": null,
   "history": [
     {
-      "at": "2026-10-25T13:59:00-04:00",
-      "followers": 60,
-      "is_live": false
-    },
-    {
-      "at": "2026-10-25T20:00:48-04:00",
-      "followers": 61,
-      "is_live": false
-    },
-    {
-      "at": "2026-10-26T02:01:00-04:00",
-      "followers": 60,
-      "is_live": false
-    },
-    {
-      "at": "2026-10-26T08:00:57-04:00",
-      "followers": 60,
-      "is_live": false
-    },
-    {
       "at": "2026-10-26T14:00:54-04:00",
       "followers": 60,
       "is_live": false
@@ -602,6 +582,26 @@
       "at": "2026-11-25T19:01:59-05:00",
       "followers": 62,
       "is_live": false
+    },
+    {
+      "at": "2026-11-26T01:00:39-05:00",
+      "followers": 62,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-26T07:01:15-05:00",
+      "followers": 62,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-26T13:00:37-05:00",
+      "followers": 62,
+      "is_live": false
+    },
+    {
+      "at": "2026-11-26T21:47:22-05:00",
+      "followers": 62,
+      "is_live": false
     }
   ],
   "is_live": false,
@@ -626,6 +626,6 @@
     }
   ],
   "title": null,
-  "updated_at": "2026-11-25T19:01:59-05:00",
+  "updated_at": "2026-11-26T21:47:22-05:00",
   "viewers": null
 }
